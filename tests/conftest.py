@@ -11,7 +11,8 @@ def client():
     initial_activities = copy.deepcopy(app_module.activities)
 
     try:
-        yield TestClient(app_module.app)
+        with TestClient(app_module.app) as client:
+            yield client
     finally:
         app_module.activities.clear()
         app_module.activities.update(initial_activities)
